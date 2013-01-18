@@ -1,0 +1,8 @@
+#!perl
+# This file is managed by /Users/handle/perl5/perlbrew/perls/5.12.4/bin/dim.
+{
+  dist => 'Net::Nakamap',
+  distdir => 'Net-Nakamap',
+  module => 'Net::Nakamap',
+  template => 'Default'
+}

@@ -1,0 +1,39 @@
+This is Perl module Net::Nakamap.
+
+INSTALLATION
+
+Type the following command:
+
+    $ curl -L http://cpanmin.us | perl - Net::Nakamap
+
+Or install cpanm and then run the following command to install
+Net::Nakamap:
+
+    $ cpanm Net::Nakamap
+
+If you get an archive of this distribution, unpack it and build it
+as per the usual:
+
+    $ tar xzf Net-Nakamap-$version.tar.gz
+    $ cd Net-Nakamap-$version
+    $ perl Makefile.PL
+    $ make && make test
+
+Then install it:
+
+    $ make install
+
+DOCUMENTATION
+
+Net::Nakamap documentation is available as in POD. So you can do:
+
+    $ perldoc Net::Nakamap
+
+to read the documentation online with your favorite pager.
+
+LICENSE AND COPYRIGHT
+
+Copyright (c) 2013, NAGATA Hiroaki <handlename>. All rights reserved.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
