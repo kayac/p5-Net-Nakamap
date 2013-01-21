@@ -27,6 +27,8 @@ use inc::Module::Install;
 all_from 'lib/Net/Nakamap.pm';
 
 
+test_requires 'Test::Mock::Guard';
+test_requires 'Test::MockObject';
 test_requires 'Test::More'     => '0.88';
 test_requires 'Test::Requires' => '0.06';
 

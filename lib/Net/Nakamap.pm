@@ -1,12 +1,85 @@
 package Net::Nakamap;
 use 5.008_001;
-use strict;
-use warnings;
 
 our $VERSION = '0.01';
 
+use HTTP::Request::Common;
+use JSON::XS;
+use LWP::UserAgent;
+use Mouse;
 
-1;
+has ua => (
+    is      => 'rw',
+    lazy    => 1,
+    default => sub {
+        return LWP::UserAgent->new(),
+    },
+);
+
+has client_id     => ( is  => 'rw', isa => 'Str' );
+has client_secret => ( is  => 'rw', isa => 'Str' );
+has redirect_uri  => ( is  => 'rw', isa => 'Str' );
+
+has auth_ep => (
+    is      => 'rw',
+    isa     => 'Str',
+    lazy    => 1,
+    default => sub { 'https://nakamap.com' },
+);
+
+has api_ep => (
+    is      => 'rw',
+    isa     => 'Str',
+    lazy    => 1,
+    default => sub { 'https://thanks.nakamap.com' },
+);
+
+has last_error => (
+    is      => 'rw',
+    isa     => 'Str',
+    lazy    => 1,
+    default => sub { '' },
+);
+
+sub auth_uri {
+    my ($self, $params) = @_;
+
+    my $uri = URI->new($self->auth_ep . '/dialog/oauth');
+    $uri->query_form(
+        client_id     => $self->client_id,
+        response_type => $params->{response_type},
+        scope         => $params->{scope},
+        ($params->{redirect_uri} ? (redirect_uri  => $params->{redirect_uri}) : ()),
+    );
+
+    return $uri;
+}
+
+sub auth_code {
+    my ($self, $params) = @_;
+
+    my $uri = URI->new($self->api_ep . '/oauth/access_token');
+    $uri->query_form(
+        client_id     => $self->client_id,
+        client_secret => $self->client_secret,
+        grant_type    => 'authorization_code',
+        code          => $params->{code},
+        ($params->{redirect_uri} ? (redirect_uri => $params->{redirect_uri}) : ()),
+    );
+
+    my $res = $self->ua->post($uri);
+
+    if ($res->is_success) {
+        return decode_json($res->content);
+    }
+    else {
+        $self->last_error($res->content);
+        return undef;
+    }
+}
+
+__PACKAGE__->meta->make_immutable();
+
 __END__
 
 =head1 NAME
