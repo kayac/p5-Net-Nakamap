@@ -16,9 +16,15 @@ has ua => (
     },
 );
 
-has client_id     => ( is  => 'rw', isa => 'Str' );
-has client_secret => ( is  => 'rw', isa => 'Str' );
-has redirect_uri  => ( is  => 'rw', isa => 'Str' );
+has client_id     => ( is => 'rw', isa => 'Str' );
+has client_secret => ( is => 'rw', isa => 'Str' );
+
+has token => (
+    is      => 'rw',
+    isa     => 'Str',
+    lazy    => 1,
+    default => sub { '' },
+);
 
 has auth_ep => (
     is      => 'rw',
@@ -65,6 +71,56 @@ sub auth_code {
         grant_type    => 'authorization_code',
         code          => $params->{code},
         ($params->{redirect_uri} ? (redirect_uri => $params->{redirect_uri}) : ()),
+    );
+
+    my $res = $self->ua->post($uri);
+
+    if ($res->is_success) {
+        return decode_json($res->content);
+    }
+    else {
+        $self->last_error($res->content);
+        return undef;
+    }
+}
+
+sub get {
+    my ($self, $path, $params) = @_;
+
+    $params ||= {};
+
+    my $token = $params->{token} || $self->token
+        or die 'access token required';
+
+    my $uri = URI->new($self->api_ep . $path);
+    $uri->query_form(
+        token => $token,
+        %$params,
+    );
+
+    my $res = $self->ua->get($uri);
+
+    if ($res->is_success) {
+        return decode_json($res->content);
+    }
+    else {
+        $self->last_error($res->content);
+        return undef;
+    }
+}
+
+sub post {
+    my ($self, $path, $params) = @_;
+
+    $params ||= {};
+
+    my $token = $params->{token} || $self->token
+        or die 'access token required';
+
+    my $uri = URI->new($self->api_ep . $path);
+    $uri->query_form(
+        token => $token,
+        %$params,
     );
 
     my $res = $self->ua->post($uri);
