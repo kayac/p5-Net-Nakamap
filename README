@@ -2,26 +2,9 @@ This is Perl module Net::Nakamap.
 
 INSTALLATION
 
-Type the following command:
+Install cpanm and then run the following command to install
 
-    $ curl -L http://cpanmin.us | perl - Net::Nakamap
-
-Or install cpanm and then run the following command to install
-Net::Nakamap:
-
-    $ cpanm Net::Nakamap
-
-If you get an archive of this distribution, unpack it and build it
-as per the usual:
-
-    $ tar xzf Net-Nakamap-$version.tar.gz
-    $ cd Net-Nakamap-$version
-    $ perl Makefile.PL
-    $ make && make test
-
-Then install it:
-
-    $ make install
+    $ cpanm https://github.com/kayac/p5-Net-Nakamap/archive/master.zip
 
 DOCUMENTATION
 
