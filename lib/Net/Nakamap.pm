@@ -1,12 +1,11 @@
 package Net::Nakamap;
 use 5.008_001;
-
-our $VERSION = '0.01';
-
 use HTTP::Request::Common;
 use JSON::XS;
 use LWP::UserAgent;
 use Mouse;
+
+our $VERSION = '0.01';
 
 has ua => (
     is      => 'rw',
