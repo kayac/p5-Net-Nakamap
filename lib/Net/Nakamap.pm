@@ -135,6 +135,11 @@ __PACKAGE__->meta->make_immutable();
 
 __END__
 
+=head1 ATTENTION
+
+THIS MODULE IS UNDER CONSTRUCTION.
+INTERFACES AND RESPONCES ARE NOT STABLE.
+
 =head1 NAME
 
 Net::Nakamap - Perl extention to do something
@@ -170,7 +175,7 @@ This document describes Net::Nakamap version 0.01.
 
 =head1 DESCRIPTION
 
-# TODO
+Tiny helper for using Nakamap API.
 
 =head1 METHODS
 
