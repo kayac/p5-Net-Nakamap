@@ -89,12 +89,11 @@ sub get {
 
     $params ||= {};
 
-    my $token = $params->{token} || $self->token
-        or die 'access token required';
+    my $token = $params->{token} || $self->token;
 
     my $uri = URI->new($self->api_ep . $path);
     $uri->query_form(
-        token => $token,
+        ( $token ? ( token => $token ) : () ),
         %$params,
     );
 
@@ -114,12 +113,11 @@ sub post {
 
     $params ||= {};
 
-    my $token = $params->{token} || $self->token
-        or die 'access token required';
+    my $token = $params->{token} || $self->token;
 
     my $uri = URI->new($self->api_ep . $path);
     $uri->query_form(
-        token => $token,
+        ( $token ? ( token => $token ) : () ),
         %$params,
     );
 
