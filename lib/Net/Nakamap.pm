@@ -147,31 +147,80 @@ This document describes Net::Nakamap version 0.01.
 
     use Net::Nakamap;
 
+    my $nakamap = Net::Nakamap->new(
+        client_id     => $client_id,
+        client_secret => $client_secret,
+    );
+
+    # generate uri for authentication
+    my $auth_uri = $nakamap->auth_uri();
+
+    # get access token
+    my $res   = $nakamap->auth_code({ code => $code });
+    my $token = $res->{access_token};
+
+    # GET
+    my $me = $nakamap->get('/1/me', { token => $token });
+
+    # POST
+    $nakamap->post('/1/me/profile', {
+        token => $token,
+        name  => 'Alice',
+    });
+
 =head1 DESCRIPTION
 
 # TODO
 
-=head1 INTERFACE
+=head1 METHODS
 
-=head2 Functions
+=over
 
-=head3 C<< hello() >>
+=item $nakamap = Net::Nakamap->new(%options)
 
-# TODO
+Creates a new Net::Nakamap instance.
 
-=head1 DEPENDENCIES
+options:
 
-Perl 5.8.1 or later.
+=over
 
-=head1 BUGS
+=item * C<client_id>
 
-All complex software has bugs lurking in it, and this module is no
-exception. If you find a bug please either email me, or add the bug
-to cpan-RT.
+=item * C<client_secret>
+
+=item * C<token>
+
+=back
+
+=item $nakamap->auth_uri($params)
+
+Generate uri for authentication.
+Returns URI object.
+
+params:
+
+=over
+
+=item * C<response_type>
+
+=item * C<scope>
+
+=back
+
+=item $nakamap->auth_code($code)
+
+Authenticate authorization code.
+Returns hash including token.
+
+=item $nakamap->get($path, $params)
+
+=item $nakamap->post()
+
+=back
 
 =head1 SEE ALSO
 
-L<perl>
+https://github.com/nakamap/docs/wiki/Api-docs
 
 =head1 AUTHOR
 
