@@ -4,6 +4,8 @@ author:
   - 'NAGATA Hiroaki <handlename> <nagata _at_ handlena _dot_ me>'
 build_requires:
   ExtUtils::MakeMaker: 6.59
+  Test::Mock::Guard: 0
+  Test::MockObject: 0
   Test::More: 0.88
   Test::Requires: 0.06
 configure_requires:
@@ -26,4 +28,5 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
+  repository: git://github.com/kayac/p5-Net-Nakamap.git
 version: 0.01
