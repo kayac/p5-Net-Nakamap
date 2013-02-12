@@ -108,19 +108,44 @@ sub get {
 }
 
 sub post {
-    my ($self, $path, $params) = @_;
+    my ($self, $path, $params, $files) = @_;
 
     $params ||= {};
 
     my $token = $params->{token} || $self->token;
+    $params->{token} = $token if $token;
 
-    my $uri = URI->new($self->api_ep . $path);
-    $uri->query_form(
-        ( $token ? ( token => $token ) : () ),
-        %$params,
-    );
+    my $res;
 
-    my $res = $self->ua->post($uri);
+    if ($files) {
+        for my $name (keys %$files) {
+            my $file = $files->{$name};
+
+            if (ref $file) {
+                $params->{$name} = [
+                    undef,
+                    'upload',
+                    'Content-Type' => 'application/octet-stream',
+                    'Content'      => $$file,
+                ];
+            }
+            else {
+                $params->{$name} = [$files->{$name}];
+            }
+        }
+
+        $res = $self->ua->request(
+            POST $self->api_ep . $path,
+            Content_Type => 'form-data',
+            Content      => [%$params],
+        );
+    }
+    else {
+        my $uri = URI->new($self->api_ep . $path);
+        $uri->query_form(%$params);
+
+        $res = $self->ua->post($uri);
+    }
 
     if ($res->is_success) {
         return decode_json($res->content);
