@@ -167,11 +167,11 @@ INTERFACES AND RESPONCES ARE NOT STABLE.
 
 =head1 NAME
 
-Net::Nakamap - Perl extention to do something
+Net::Nakamap - A Perl interface to the Nakamap API
 
 =head1 VERSION
 
-This document describes Net::Nakamap version 0.01.
+This document describes Net::Nakamap version 0.02.
 
 =head1 SYNOPSIS
 
@@ -206,28 +206,37 @@ Tiny helper for using Nakamap API.
 
 =over
 
-=item $nakamap = Net::Nakamap->new(%options)
+=item C<< $nakamap = Net::Nakamap->new(%options) >>
 
 Creates a new Net::Nakamap instance.
 
-options:
+C<%options> is a Hash.
+kesy of C<%option> are:
 
 =over
 
 =item * C<client_id>
 
+client id for your app.
+
 =item * C<client_secret>
+
+client secret for your app.
 
 =item * C<token>
 
+Not required.
+If given, you can ommit C<token> for each C<get> or C<post> method.
+
 =back
 
-=item $nakamap->auth_uri($params)
+=item C<< $nakamap->auth_uri($params) >>
 
 Generate uri for authentication.
 Returns URI object.
 
-params:
+C<$params> is a HashRef.
+keys of C<$params> are:
 
 =over
 
@@ -237,24 +246,60 @@ params:
 
 =back
 
-=item $nakamap->auth_code($code)
+=item C<< $nakamap->auth_code($code) >>
 
 Authenticate authorization code.
 Returns hash including token.
 
-=item $nakamap->get($path, $params)
+=item C<< $nakamap->get($path, $params) >>
 
-=item $nakamap->post()
+Send GET request to Nakamap API.
+
+=item C<< $nakamap->post($path, $params, $files) >>
+
+Send POST request to Nakamap API.
+
+files in C<$files> are sent as multipart/form-data.
+
+    $files = {
+        icon => 'path/to/file',
+    }
+
+or
+
+    $files = {
+        icon => \$binary_data,
+    }
 
 =back
 
 =head1 SEE ALSO
 
+=over
+
+=item * Developer Site for Nakamap.
+
+http://developer.nakamap.com
+
+=item * Nakamap API document.
+
 https://github.com/nakamap/docs/wiki/Api-docs
+
+=back
+
+=head1 REPOSITORY
+
+=over
+
+=item * GitHub
+
+https://github.com/kayac/p5-Net-Nakamap
+
+=back
 
 =head1 AUTHOR
 
-NAGATA Hiroaki <handlename> E<lt>nagata _at_ handlena _dot_ meE<gt>
+NAGATA Hiroaki <handlename> E<lt>handle _at_ cpan _dot_ orgE<gt>
 
 =head1 LICENSE AND COPYRIGHT
 
