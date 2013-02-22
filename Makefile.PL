@@ -26,6 +26,8 @@ use inc::Module::Install;
 
 all_from 'lib/Net/Nakamap.pm';
 
+requires 'JSON::XS';
+requires 'Mouse';
 
 test_requires 'Test::Mock::Guard';
 test_requires 'Test::MockObject';
