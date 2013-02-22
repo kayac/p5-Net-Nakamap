@@ -4,6 +4,10 @@ INSTALLATION
 
 Install cpanm and then run the following command to install
 
+    $ cpanm Net::Nakamap
+
+or
+
     $ cpanm https://github.com/kayac/p5-Net-Nakamap/archive/master.zip
 
 DOCUMENTATION
