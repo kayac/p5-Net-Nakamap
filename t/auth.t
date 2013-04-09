@@ -22,7 +22,6 @@ my $guard = mock_guard $ua => {
 my $nakamap = Net::Nakamap->new(
     client_id     => 'this_is_client_id',
     client_secret => 'this_is_client_secret',
-    redirect_uri  => 'http://example.com',
     ua            => $ua,
 );
 
