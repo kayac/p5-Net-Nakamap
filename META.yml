@@ -31,4 +31,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/kayac/p5-Net-Nakamap.git
-version: 0.02
+version: 0.03

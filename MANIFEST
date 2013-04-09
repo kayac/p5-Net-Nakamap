@@ -1,5 +1,3 @@
-.dimconfig
-.shipit
 Changes
 inc/Module/Install.pm
 inc/Module/Install/AuthorTests.pm
@@ -16,6 +14,11 @@ META.yml
 README
 t/000_load.t
 t/001_basic.t
+t/auth.t
+t/get.t
+t/post.t
+t/post_multipart.t
+t/test.txt
 xt/perlcritic.t
 xt/pod.t
 xt/podcoverage.t
